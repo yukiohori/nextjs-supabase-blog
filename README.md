@@ -1,0 +1,2 @@
+# nextjs-supabase-blog
+NextJS
