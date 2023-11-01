@@ -5,7 +5,7 @@ import { Main } from './Main';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
-  title: 'Example/Main',
+  title: 'Templates/Main',
   component: Main,
   tags: ['autodocs'],
   parameters: {

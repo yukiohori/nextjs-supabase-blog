@@ -44,22 +44,16 @@ const Main = (props: IMainProps) => (
           Blog
         </Link>
         <Link
-          href="/"
+          href="/tutorial"
           className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
         >
           Tutorial
         </Link>
         <Link
-          href="/"
+          href="/about"
           className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
         >
           About
-        </Link>
-        <Link
-          href="/sign-in/"
-          className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
-        >
-          Login
         </Link>
       </nav>
       <Link

@@ -1,6 +1,6 @@
 import Image from 'next/legacy/image';
 
-export const Technologies = () => {
+const Technologies = () => {
   return (
     <div className="bg-white py-6 sm:py-8 lg:py-12">
       <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
@@ -22,8 +22,8 @@ export const Technologies = () => {
             <Image
               src="/assets/images/supabase.svg"
               loading="lazy"
-              width={200}
-              height={200}
+              width={300}
+              height={160}
               alt="Supabase Logo"
             />
           </div>
@@ -34,7 +34,7 @@ export const Technologies = () => {
               layout="fixed"
               width={200}
               height={65}
-              alt="Photo by Fakurian Design"
+              alt="Clerk Logo"
             />
           </div>
         </div>
@@ -42,3 +42,5 @@ export const Technologies = () => {
     </div>
   );
 };
+
+export { Technologies };
