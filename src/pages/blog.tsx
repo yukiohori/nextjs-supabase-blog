@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
+import { Main } from '@/components/templates/Main';
 import { Meta } from '@/layouts/Meta';
-import { Main } from '@/templates/Main';
 
 const Blog = () => (
   <Main meta={<Meta title="Lorem ipsum" description="Lorem ipsum" />}>

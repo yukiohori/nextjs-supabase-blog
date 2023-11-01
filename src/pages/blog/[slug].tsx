@@ -4,8 +4,8 @@ import type {
   InferGetStaticPropsType,
 } from 'next';
 
+import { Main } from '@/components/templates/Main';
 import { Meta } from '@/layouts/Meta';
-import { Main } from '@/templates/Main';
 
 type IBlogUrl = {
   slug: string;

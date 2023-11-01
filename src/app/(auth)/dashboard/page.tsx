@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { Hello } from '@/components/Hello';
+import { Hello } from '@/components/pages/dashboard/Hello';
 
 export const metadata: Metadata = {
   title: 'Dashboard',
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 };
 
 const Dashboard = () => (
-  <div className="content">
+  <div>
     <Hello />
   </div>
 );
