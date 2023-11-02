@@ -2,10 +2,12 @@
 
 import { useUser } from '@clerk/nextjs';
 
+import { Alert } from '@/components/ui/Alert';
+
 const Hello = () => {
   const { user } = useUser();
 
-  return <p>👋 Hello {user?.primaryEmailAddress?.toString()}</p>;
+  return <Alert>👋 Hello {user?.primaryEmailAddress?.toString()}</Alert>;
 };
 
 export { Hello };

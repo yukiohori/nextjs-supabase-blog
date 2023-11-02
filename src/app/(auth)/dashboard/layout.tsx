@@ -2,6 +2,7 @@ import { UserButton } from '@clerk/nextjs';
 
 import { Header } from '@/components/pages/dashboard/Header';
 import { Sidebar } from '@/components/pages/dashboard/Sidebar';
+import { SignOutButton } from '@/components/pages/dashboard/SignOutButton';
 
 export default function DashboardLayout({
   children, // will be a page or nested layout
@@ -11,7 +12,7 @@ export default function DashboardLayout({
   return (
     <div className="w-full px-1 text-gray-700 antialiased">
       <Header user={<UserButton afterSignOutUrl="/" />} />
-      <Sidebar />
+      <Sidebar user={<SignOutButton />} />
       <div className="w-full">
         <main className="flex flex-row">
           <div className="hidden w-64 shrink-0 lg:flex" />

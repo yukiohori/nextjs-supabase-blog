@@ -2,12 +2,12 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 type HeaderProps = {
-  user: ReactNode;
+  user?: ReactNode;
 };
 
 const Header = ({ user }: HeaderProps) => {
   return (
-    <nav className="fixed z-30 w-full border-b border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
+    <nav className="fixed z-30 w-full border-b border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800">
       <div className="p-3 lg:px-5 lg:pl-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center justify-start">
