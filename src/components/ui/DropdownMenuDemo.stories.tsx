@@ -1,20 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Loading as LoadingComponent } from '@/components/atoms/Loading';
+import { DropdownMenuDemo as DropdownMenuDemoComponent } from '@/components/ui/DropdownMenuDemo';
 
 // More on how to set up stories at: https://storybook.js.org/docs/7.0/react/writing-stories/introduction
 const meta = {
-  title: 'Atomic Design/Atoms',
-  component: LoadingComponent,
+  title: 'Shadcn/UI',
+  component: DropdownMenuDemoComponent,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/7.0/react/configure/story-layout
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof LoadingComponent>;
+} satisfies Meta<typeof DropdownMenuDemoComponent>;
 
 export default meta;
-type Story = StoryObj<typeof LoadingComponent>;
+type Story = StoryObj<typeof DropdownMenuDemoComponent>;
 
-export const Loading = {
+export const DropdownMenuDemo = {
   args: {},
 } satisfies Story;

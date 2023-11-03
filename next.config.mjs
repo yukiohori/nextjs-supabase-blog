@@ -16,4 +16,12 @@ export default bundleAnalyzer({
   experimental: {
     webpackBuildWorker: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ksiybdpmwdqcrvzekscu.supabase.co',
+      },
+    ],
+  },
 });

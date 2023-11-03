@@ -1,3 +1,5 @@
+'use client';
+
 import { UserButton } from '@clerk/nextjs';
 
 import { Header } from '@/components/pages/dashboard/Header';
@@ -10,9 +12,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="w-full px-1 text-gray-700 antialiased">
+    <div className="w-full text-gray-700 antialiased">
       <Header user={<UserButton afterSignOutUrl="/" />} />
-      <Sidebar user={<SignOutButton />} />
+      <Sidebar logout={<SignOutButton />} />
       <div className="w-full">
         <main className="flex flex-row">
           <div className="hidden w-64 shrink-0 lg:flex" />

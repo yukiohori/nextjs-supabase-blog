@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
-import { AppConfig } from '@/utils/AppConfig';
+import { AppConfig } from '@/utils/appConfig';
 
 type IMainProps = {
   meta?: ReactNode;
@@ -235,14 +235,14 @@ const Main = (props: IMainProps) => (
               </div>
 
               <nav className="flex flex-col gap-4">
-                <div>
+                {/* <div>
                   <Link
-                    href="/"
+                    href="/abouta"
                     className="text-gray-400 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                   >
-                    About
+                    Abouta
                   </Link>
-                </div>
+                </div> */}
 
                 <div>
                   <Link

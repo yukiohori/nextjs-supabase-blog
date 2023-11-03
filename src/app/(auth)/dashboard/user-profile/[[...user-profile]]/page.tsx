@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 const UserProfilePage = () => (
-  <div>
+  <div className="flex items-center justify-center pb-6">
     <UserProfile />
   </div>
 );

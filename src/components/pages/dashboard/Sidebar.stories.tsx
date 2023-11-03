@@ -15,4 +15,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof SidebarComponent>;
 
-export const Sidebar = {} satisfies Story;
+export const Sidebar = {
+  args: {
+    logout: <p>Logout</p>,
+  },
+} satisfies Story;

@@ -1,62 +1,129 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import clsx from 'clsx';
+import { Plus } from 'lucide-react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Loading } from '@/components/atoms/Loading';
+import { ConfirmDialog } from '@/components/organisms/AlertDialog';
+import { CategoryForm } from '@/components/pages/dashboard/category/Form/CategoryForm';
+import { columns } from '@/components/pages/dashboard/category/table/Columns';
+import { DataTable } from '@/components/pages/dashboard/category/table/DataTable';
 import { Button } from '@/components/ui/Button';
-import { toast } from '@/hooks/useToast';
-import { supabase } from '@/libs/supabase';
-import type { Category } from '@/types/database';
+import { useCategory } from '@/hooks/useCategory';
+import type {
+  Category,
+  CategoryInsert,
+  CategoryUpdate,
+} from '@/types/database';
+import { RequestFormType } from '@/utils/constants';
 
 const CategoryIndex = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [categoryList, setCategoryList] = useState<Category[]>([]);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [openFormDialog, setOpenFormDialog] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<Category>();
+  const [upsertType, setUpsertType] = useState<RequestFormType>(
+    RequestFormType.Insert,
+  );
 
-  const fetchCategories = async () => {
-    try {
-      const { data: categories } = await supabase.from('category').select('*');
-      setCategoryList(categories || []);
-    } catch (e) {
-      setCategoryList([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const {
+    fetchCategories,
+    insertCategory,
+    updateCategory,
+    deleteCategory,
+    isLoading,
+    categoryList,
+  } = useCategory();
 
   useEffect(() => {
     fetchCategories();
   }, []);
 
+  const upsertCategory = async (category: CategoryInsert | CategoryUpdate) => {
+    if (upsertType === RequestFormType.Insert) {
+      return insertCategory(category as CategoryInsert);
+    }
+    return updateCategory(category as CategoryUpdate);
+  };
+
+  const openInsertCategoryForm = useCallback(() => {
+    setUpsertType(RequestFormType.Insert);
+    setOpenFormDialog(true);
+  }, []);
+
+  const openUpdateCategoryForm = useCallback(() => {
+    setUpsertType(RequestFormType.Update);
+    setOpenFormDialog(true);
+  }, []);
+
+  const categoryListTableData = useMemo(() => {
+    return categoryList.map((category) => {
+      return {
+        ...category,
+        delete: () => {
+          setSelectedCategory(category);
+          setOpenConfirmDialog(true);
+        },
+        update: () => {
+          setSelectedCategory(category);
+          openUpdateCategoryForm();
+        },
+        hide: () => {
+          updateCategory({
+            ...category,
+            show: !category.show,
+          });
+        },
+      };
+    });
+  }, [categoryList, deleteCategory]);
+
+  const deleteSelectedCategory = async () => {
+    if (selectedCategory) {
+      await deleteCategory(selectedCategory.id);
+      setSelectedCategory(undefined);
+    }
+  };
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <main className="flex flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">Category</h1>
-        <Button
-          variant="outline"
-          onClick={() => {
-            toast({
-              description: 'Your message has been sent.',
-            });
-          }}
-        >
-          Add to calendar
+    <>
+      <h1 className="text-center text-3xl font-bold">Category</h1>
+      <div className="mt-6">
+        <Button onClick={openInsertCategoryForm}>
+          <Plus />
         </Button>
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <div className="flex flex-col items-center justify-center">
-            {isLoading && (
-              <div className="flex h-40 w-full items-center justify-center">
-                <Loading />
-              </div>
+      </div>
+      <div className="relative mt-6 min-h-[140px] w-full overflow-hidden">
+        {isLoading && (
+          <div
+            className={clsx(
+              'absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center',
+              categoryList.length && 'bg-black/40',
             )}
-            {categoryList.map((category) => (
-              <div key={category.id}>
-                <span className="text-xl font-bold">{category.name}</span>
-              </div>
-            ))}
+          >
+            <Loading />
           </div>
-        </div>
-      </main>
-    </div>
+        )}
+        {categoryList.length > 0 && (
+          <DataTable columns={columns} data={categoryListTableData} />
+        )}
+        <CategoryForm
+          open={openFormDialog}
+          defaultValues={selectedCategory}
+          setOpen={setOpenFormDialog}
+          onFormSubmit={upsertCategory}
+          upsertType={upsertType}
+        />
+        <ConfirmDialog
+          title="Are you absolutely sure?"
+          description="  This action cannot be undone. This will permanently delete the category."
+          open={openConfirmDialog}
+          onOpenChange={setOpenConfirmDialog}
+          confirmAction={deleteSelectedCategory}
+        />
+      </div>
+    </>
   );
 };
 

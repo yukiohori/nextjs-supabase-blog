@@ -1,5 +1,11 @@
-const Loading = () => (
-  <div role="status">
+import clsx from 'clsx';
+
+type LoadingProps = {
+  className?: string;
+};
+
+const Loading = ({ className }: LoadingProps) => (
+  <div className={clsx(className)}>
     <svg
       aria-hidden="true"
       className="mr-2 h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
