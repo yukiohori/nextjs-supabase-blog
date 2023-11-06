@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     name: Build with ${{ matrix.node-version }}
@@ -22,14 +22,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      - run: npm ci
-      - run: npx next build
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+      - run: yarn
+      - run: yarn next build
 
   test:
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [20.x]
 
     name: Run all tests
     runs-on: ubuntu-latest
@@ -42,30 +44,31 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm"
-      - run: npm ci
+          cache: "yarn"
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
 
       - if: github.event_name == 'pull_request'
         name: Validate all commits from PR
         run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
 
       - name: Linter
-        run: npm run lint
+        run: yarn lint
 
       - name: Type checking
-        run: npm run check-types
+        run: yarn check-types
 
       - name: Run unit tests
-        run: npm run test
+        run: yarn test
 
       - name: Install Playwright (used for Storybook and E2E tests)
         run: npx playwright install --with-deps
 
       - name: Run storybook tests
-        run: npm run test-storybook:ci
+        run: yarn test-storybook:ci
 
       - name: Run E2E tests
-        run: npx percy exec -- npm run test:e2e
+        run: npx percy exec -- yarn test:e2e
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
