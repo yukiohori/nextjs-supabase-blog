@@ -20,8 +20,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "yarn"
-      - run: yarn ci
+          cache: "npm"
+      - run: npm ci
 
       - run: npx npm-check-updates -u # Update dependencies
       - run: rm -Rf node_modules package-lock.json

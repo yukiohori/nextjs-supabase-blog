@@ -22,8 +22,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "yarn"
-      - run: yarn ci
+          cache: "npm"
+      - run: npm ci
       - run: npx next build
 
   test:
@@ -42,30 +42,30 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "yarn"
-      - run: yarn ci
+          cache: "npm"
+      - run: npm ci
 
       - if: github.event_name == 'pull_request'
         name: Validate all commits from PR
         run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
 
       - name: Linter
-        run: yarn run lint
+        run: npm run lint
 
       - name: Type checking
-        run: yarn run check-types
+        run: npm run check-types
 
       - name: Run unit tests
-        run: yarn run test
+        run: npm run test
 
       - name: Install Playwright (used for Storybook and E2E tests)
         run: npx playwright install --with-deps
 
       - name: Run storybook tests
-        run: yarn run test-storybook:ci
+        run: npm run test-storybook:ci
 
       - name: Run E2E tests
-        run: npx percy exec -- yarn run test:e2e
+        run: npx percy exec -- npm run test:e2e
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
