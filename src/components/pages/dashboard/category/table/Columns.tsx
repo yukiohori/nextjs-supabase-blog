@@ -1,7 +1,13 @@
 'use client';
 
 import type { ColumnDef } from '@tanstack/react-table';
-import { Eye, EyeOff, MoreHorizontal } from 'lucide-react';
+import {
+  ArrowUpDown,
+  Eye,
+  EyeOff,
+  ImageOff,
+  MoreHorizontal,
+} from 'lucide-react';
 import Image from 'next/legacy/image';
 
 import { Button } from '@/components/ui/Button';
@@ -24,7 +30,17 @@ type CategoryRow = Category & {
 export const columns: ColumnDef<CategoryRow>[] = [
   {
     accessorKey: 'id',
-    header: 'ID',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          ID
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: 'image_url',
@@ -43,7 +59,7 @@ export const columns: ColumnDef<CategoryRow>[] = [
               />
             </div>
           ) : (
-            <p>NO IMAGE</p>
+            <ImageOff />
           )}
         </div>
       );

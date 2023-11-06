@@ -8,8 +8,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Loading } from '@/components/atoms/Loading';
 import { ConfirmDialog } from '@/components/organisms/AlertDialog';
 import { CategoryForm } from '@/components/pages/dashboard/category/Form/CategoryForm';
-import { columns } from '@/components/pages/dashboard/category/table/Columns';
-import { DataTable } from '@/components/pages/dashboard/category/table/DataTable';
+import { columns } from '@/components/pages/dashboard/category/Table/Columns';
+import { DataTable } from '@/components/pages/dashboard/category/Table/DataTable';
 import { Button } from '@/components/ui/Button';
 import { useCategory } from '@/hooks/useCategory';
 import type {
@@ -49,6 +49,7 @@ const CategoryIndex = () => {
 
   const openInsertCategoryForm = useCallback(() => {
     setUpsertType(RequestFormType.Insert);
+    setSelectedCategory(undefined);
     setOpenFormDialog(true);
   }, []);
 

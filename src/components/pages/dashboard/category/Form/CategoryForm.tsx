@@ -1,9 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
+import { Label } from '@radix-ui/react-label';
+import Image from 'next/legacy/image';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import type * as z from 'zod';
 
 import { Button } from '@/components/ui/Button';
+import { Checkbox } from '@/components/ui/Checkbox';
 import {
   Dialog,
   DialogClose,
@@ -22,6 +25,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/Input';
+import useUpload from '@/hooks/useUpload';
 import type {
   Category,
   CategoryInsert,
@@ -45,19 +49,41 @@ export const CategoryForm = ({
   setOpen,
   onFormSubmit,
 }: CategoryFormProps) => {
+  const { uploadImage } = useUpload();
+  const [thumbnail, setThumbnail] = useState<string>('');
+  const imageFile = useRef<File>();
+
   const form = useForm<z.infer<typeof CategorySchema>>({
     resolver: zodResolver(CategorySchema),
     defaultValues: {
       name: defaultValues?.name ?? '',
+      image_url: defaultValues?.image_url ?? '',
+      show: defaultValues?.show ?? true,
     },
   });
 
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      if (file) {
+        imageFile.current = file;
+        const imageUrlUploaded = URL.createObjectURL(file);
+        // const imageUrlUploaded = await uploadImage(file, 'category');
+        setThumbnail(imageUrlUploaded);
+      }
+    }
+  };
+
   const onSubmit = async (values: z.infer<typeof CategorySchema>) => {
-    const success = await onFormSubmit(
-      upsertType === RequestFormType.Insert
-        ? values
-        : { ...defaultValues, ...values },
-    );
+    let imageUrl = values.image_url;
+    if (imageFile.current) {
+      imageUrl = await uploadImage(imageFile.current, 'category');
+    }
+    const success = await onFormSubmit({
+      ...defaultValues,
+      ...values,
+      image_url: imageUrl,
+    });
     if (success) {
       form.reset();
       setOpen(false);
@@ -67,12 +93,15 @@ export const CategoryForm = ({
   useEffect(() => {
     form.reset({
       name: defaultValues?.name ?? '',
+      image_url: defaultValues?.image_url ?? '',
+      show: defaultValues?.show ?? true,
     });
+    setThumbnail(defaultValues?.image_url ?? '');
   }, [defaultValues, form]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="h-[570px] sm:h-[510px]">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <DialogHeader>
@@ -87,24 +116,51 @@ export const CategoryForm = ({
                 } category here.`}
               </DialogDescription>
             </DialogHeader>
-            <div className="my-4 ">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Category Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        className="w-full"
-                        placeholder="Insert Category name here..."
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem className="my-4">
+                  <FormLabel>Category Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      className="w-full"
+                      placeholder="Insert Category name here..."
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="my-4 grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="picture">Picture</Label>
+              <Input id="picture" type="file" onChange={handleImageChange} />
+            </div>
+            {thumbnail ? (
+              <div className="relative my-4 h-full max-h-36 w-full max-w-[200px]">
+                <Image
+                  src={thumbnail}
+                  alt=""
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-md"
+                />
+              </div>
+            ) : (
+              <div className="relative my-4 flex h-full max-h-36 w-full max-w-[200px] items-center justify-center rounded-md border-2 border-dotted">
+                <p>Preview</p>
+              </div>
+            )}
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="showStatus"
+                checked={form.watch('show')}
+                onCheckedChange={(value) => {
+                  form.setValue('show', value as boolean);
+                }}
               />
+              <Label htmlFor="showStatus">Show Status</Label>
             </div>
             <DialogFooter>
               <DialogClose asChild>
@@ -112,7 +168,9 @@ export const CategoryForm = ({
                   Close
                 </Button>
               </DialogClose>
-              <Button type="submit">Save</Button>
+              <Button className="mb-4 md:mb-0" type="submit">
+                Save
+              </Button>
             </DialogFooter>
           </form>
         </Form>

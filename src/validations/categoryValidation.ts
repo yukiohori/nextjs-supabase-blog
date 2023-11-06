@@ -9,4 +9,6 @@ export const CategorySchema = z.object({
     .max(20, {
       message: 'Category name must be less than 20 characters.',
     }),
+  image_url: z.string().nullable(),
+  show: z.boolean(),
 });
