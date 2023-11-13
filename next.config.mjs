@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, import/extensions */
-import './src/libs/Env.mjs';
+import './libs/Env.mjs';
 import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const bundleAnalyzer = withBundleAnalyzer({
@@ -13,9 +13,6 @@ export default bundleAnalyzer({
   },
   poweredByHeader: false,
   reactStrictMode: true,
-  experimental: {
-    webpackBuildWorker: true,
-  },
   images: {
     remotePatterns: [
       {

@@ -25,5 +25,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "prettier.ignorePath": ".gitignore",
-  "cSpell.words": ["upsert"] // Don't run prettier for files listed in .gitignore
+  "cSpell.words": ["upsert"],
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+  } // Don't run prettier for files listed in .gitignore
 }

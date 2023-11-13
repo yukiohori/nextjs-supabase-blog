@@ -8,7 +8,7 @@ const createJestConfig = nextJest({
 const customJestConfig = {
   moduleNameMapper: {
     // Handle module aliases (this will be automatically configured for you soon)
-    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@/(.*)$': '<rootDir>/$1',
 
     '^@/public/(.*)$': '<rootDir>/public/$1',
 
@@ -18,9 +18,9 @@ const customJestConfig = {
   clearMocks: true,
   collectCoverage: true,
   collectCoverageFrom: [
-    './src/**/*.{js,jsx,ts,tsx}',
-    '!./src/**/_*.{js,jsx,ts,tsx}',
-    '!./src/**/*.stories.{js,jsx,ts,tsx}',
+    './**/*.{js,jsx,ts,tsx}',
+    '!./**/_*.{js,jsx,ts,tsx}',
+    '!./**/*.stories.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
     '!**/node_modules/**',
   ],
@@ -33,7 +33,7 @@ const customJestConfig = {
     },
   },
   testEnvironment: 'jest-environment-jsdom',
-  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/tests/'],
+  testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/tests/e2e/'],
 };
 
 module.exports = createJestConfig(customJestConfig);

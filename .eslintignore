@@ -1,3 +1,4 @@
 node_modules
 out
-!.storybook
+.storybook
+__mocks__
