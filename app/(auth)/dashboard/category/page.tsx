@@ -1,6 +1,7 @@
 'use client';
 
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useAuth } from '@clerk/nextjs';
 import clsx from 'clsx';
 import { Plus } from 'lucide-react';
 import { useCallback, useMemo, useState } from 'react';
@@ -20,6 +21,7 @@ import type {
 } from '@/types/database';
 
 const DashboardCategory = () => {
+  const { userId } = useAuth();
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const [openFormDialog, setOpenFormDialog] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category>();
@@ -71,6 +73,7 @@ const DashboardCategory = () => {
             show: !category.show,
           });
         },
+        disabled: userId !== category.user_id,
       };
     });
   }, [categoryList, deleteCategory]);

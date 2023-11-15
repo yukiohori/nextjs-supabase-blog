@@ -25,6 +25,7 @@ type CategoryRow = Category & {
   delete: () => void;
   update: () => void;
   hide: () => void;
+  disabled: boolean;
 };
 
 export const columns: ColumnDef<CategoryRow>[] = [
@@ -93,15 +94,24 @@ export const columns: ColumnDef<CategoryRow>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={row.original.update}>
+            <DropdownMenuItem
+              disabled={row.original.disabled}
+              onClick={row.original.update}
+            >
               Edit Category
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={row.original.delete}>
+            <DropdownMenuItem
+              disabled={row.original.disabled}
+              onClick={row.original.delete}
+            >
               Delete Category
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={row.original.hide}>{`${
+            <DropdownMenuItem
+              disabled={row.original.disabled}
+              onClick={row.original.hide}
+            >{`${
               row.getValue('show') ? 'Hide' : 'Show'
             } Category`}</DropdownMenuItem>
           </DropdownMenuContent>

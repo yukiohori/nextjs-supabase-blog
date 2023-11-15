@@ -17,8 +17,7 @@
     "storybook:serve": "http-server storybook-static --port 6006 --silent",
     "serve-storybook": "run-s storybook:*",
     "test-storybook:ci": "start-server-and-test serve-storybook http://127.0.0.1:6006 test-storybook",
-    "prepare": "husky install",
-    "postbuild": "next-sitemap"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.26.2",
@@ -41,7 +40,9 @@
     "@supabase/supabase-js": "latest",
     "@t3-oss/env-nextjs": "^0.7.1",
     "@tanstack/react-table": "^8.10.7",
+    "@tiptap/extension-code-block": "^2.1.12",
     "@tiptap/extension-image": "^2.1.12",
+    "@tiptap/extension-text-align": "^2.1.12",
     "@tiptap/pm": "^2.1.12",
     "@tiptap/react": "^2.1.12",
     "@tiptap/starter-kit": "^2.1.12",
@@ -50,7 +51,6 @@
     "clsx": "^2.0.0",
     "lucide-react": "^0.292.0",
     "next": "latest",
-    "next-sitemap": "^4.2.3",
     "postcss": "8.4.29",
     "react": "18.2.0",
     "react-dom": "18.2.0",

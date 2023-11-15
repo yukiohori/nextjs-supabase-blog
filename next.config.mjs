@@ -19,6 +19,10 @@ export default bundleAnalyzer({
         protocol: 'https',
         hostname: 'ksiybdpmwdqcrvzekscu.supabase.co',
       },
+      {
+        protocol: 'https',
+        hostname: 'img.clerk.com',
+      },
     ],
   },
 });

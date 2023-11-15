@@ -163,6 +163,8 @@ export const useBlog = (fetch?: boolean) => {
         setIsLoading(true);
         const sb = await supabaseClient(supabaseAccessToken);
         const { error } = await sb.from('blogs').delete().match({ id });
+        console.log(error);
+
         if (error) {
           throw new Error(error.message);
         }

@@ -2,6 +2,7 @@
 
 'use client';
 
+import { useAuth } from '@clerk/nextjs';
 import clsx from 'clsx';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
@@ -14,6 +15,7 @@ import { Button } from '@/components/ui/Button';
 import { useBlog } from '@/hooks/useBlog';
 
 const DashboardBlog = () => {
+  const { userId } = useAuth();
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const { deleteBlog, blogList, isLoading } = useBlog(true);
   const selectedBlogId = useRef<number | null>(null);
@@ -56,6 +58,7 @@ const DashboardBlog = () => {
                 description={blog.description}
                 image={blog.thumbnail}
                 category={blog.categories}
+                permission={userId === blog.user_id}
                 onDelete={() => {
                   selectedBlogId.current = blog.id;
                   setOpenConfirmDialog(true);

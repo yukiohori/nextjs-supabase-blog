@@ -1,9 +1,17 @@
+/* eslint-disable import/no-extraneous-dependencies */
 // eslint-disable-next-line import/no-extraneous-dependencies
 
 import { Image as TipTapImage } from '@tiptap/extension-image';
+import TextAlign from '@tiptap/extension-text-align';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
-import { Image as ImageIcon } from 'lucide-react';
+import {
+  AlignCenter,
+  AlignJustify,
+  AlignLeft,
+  AlignRight,
+  Image as ImageIcon,
+} from 'lucide-react';
 import Image from 'next/legacy/image';
 import { useRef, useState } from 'react';
 
@@ -33,12 +41,21 @@ export default function Editor({ getHTML, defaultContent }: IEditorProps) {
   const [open, setOpen] = useState(false);
 
   const editor = useEditor({
-    extensions: [StarterKit, TipTapImage],
+    extensions: [
+      StarterKit,
+      TipTapImage.configure({
+        HTMLAttributes: {
+          style: 'margin: auto',
+        },
+      }),
+      TextAlign.configure({
+        types: ['heading', 'paragraph', 'image'],
+      }),
+    ],
     content: defaultContent?.replace(/<p><\/p>/g, '<br/>') || '',
-
     editorProps: {
       attributes: {
-        class: 'textarea textarea-bordered w-full min-h-[200px]',
+        class: 'textarea textarea-bordered w-full min-h-[200px] p-2',
       },
     },
   });
@@ -92,6 +109,31 @@ export default function Editor({ getHTML, defaultContent }: IEditorProps) {
         >
           H3
         </Toggle>
+        <Toggle
+          data-state={editor.isActive({ textAlign: 'left' }) ? 'on' : 'off'}
+          onClick={() => editor.chain().focus().setTextAlign('left').run()}
+        >
+          <AlignLeft />
+        </Toggle>
+        <Toggle
+          data-state={editor.isActive({ textAlign: 'center' }) ? 'on' : 'off'}
+          onClick={() => editor.chain().focus().setTextAlign('center').run()}
+        >
+          <AlignCenter />
+        </Toggle>
+        <Toggle
+          data-state={editor.isActive({ textAlign: 'right' }) ? 'on' : 'off'}
+          onClick={() => editor.chain().focus().setTextAlign('right').run()}
+        >
+          <AlignRight />
+        </Toggle>
+        <Toggle
+          data-state={editor.isActive({ textAlign: 'justify' }) ? 'on' : 'off'}
+          onClick={() => editor.chain().focus().setTextAlign('justify').run()}
+        >
+          <AlignJustify />
+        </Toggle>
+
         {isLoading ? (
           <p>Uploading...</p>
         ) : (

@@ -1,6 +1,9 @@
+'use client';
+
 import { ImageMinus, Pencil, Trash } from 'lucide-react';
 import Image from 'next/legacy/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
@@ -12,7 +15,8 @@ type BlogCardProps = {
   description: string;
   image: string | null;
   category?: BlogCategoryRow[];
-  onDelete: () => void;
+  permission?: boolean;
+  onDelete?: () => void;
 };
 
 const BlogCard = ({
@@ -21,8 +25,10 @@ const BlogCard = ({
   description,
   image,
   category = [],
+  permission = false,
   onDelete,
 }: BlogCardProps) => {
+  const router = useRouter();
   return (
     <div className="flex min-h-[240px] w-full flex-col overflow-hidden rounded-lg border shadow-lg sm:flex-row">
       <div className="relative h-[300px] w-full sm:h-full sm:min-h-[280px] sm:max-w-sm">
@@ -55,14 +61,29 @@ const BlogCard = ({
           </div>
         </div>
         <div className="mt-4 flex flex-row justify-end space-x-4 sm:mt-0">
-          <Link href={`/dashboard/blog/edit/${id}`}>
-            <Button>
-              <Pencil />
-            </Button>
-          </Link>
-          <Button onClick={onDelete} variant="destructive">
-            <Trash />
-          </Button>
+          {onDelete ? (
+            <>
+              <Button
+                disabled={!permission}
+                onClick={() => {
+                  router.push(`/dashboard/blog/edit/${id}`);
+                }}
+              >
+                <Pencil />
+              </Button>
+              <Button
+                disabled={!permission}
+                onClick={onDelete}
+                variant="destructive"
+              >
+                <Trash />
+              </Button>
+            </>
+          ) : (
+            <Link href={`/blog/${id}`}>
+              <Button>Read More</Button>
+            </Link>
+          )}
         </div>
       </div>
     </div>
