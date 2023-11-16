@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies, import/extensions */
-import './src/libs/Env.mjs';
+import './libs/Env.mjs';
 import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const bundleAnalyzer = withBundleAnalyzer({
@@ -13,14 +13,15 @@ export default bundleAnalyzer({
   },
   poweredByHeader: false,
   reactStrictMode: true,
-  experimental: {
-    webpackBuildWorker: true,
-  },
   images: {
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'ksiybdpmwdqcrvzekscu.supabase.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.clerk.com',
       },
     ],
   },
