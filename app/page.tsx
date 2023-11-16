@@ -1,10 +1,15 @@
+import type { Metadata } from 'next';
 import Image from 'next/legacy/image';
 import Link from 'next/link';
 
 import { BlogTopCard } from '@/components/organisms/BlogTopCard';
+import { Technologies } from '@/components/organisms/Technologies';
 import { createClient } from '@/libs/supabase/client';
 
-// import { Technologies } from '@/components/organisms/Technologies';
+export const metadata: Metadata = {
+  title: 'NEXTJS STARTER HOME PAGE',
+  description: 'This is a home page. You can see home in this page.',
+};
 
 const Page = async () => {
   const sp = createClient();
@@ -62,7 +67,7 @@ const Page = async () => {
         </div>
       </div>
 
-      {/* <Technologies /> */}
+      <Technologies />
 
       <div className="bg-white py-6 sm:py-8 lg:py-12">
         <div className="mx-auto max-w-screen-2xl px-4 md:px-8">

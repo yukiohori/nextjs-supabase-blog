@@ -14,7 +14,7 @@ export default function DashboardLayout({
   return (
     <div className="w-full text-gray-700 antialiased">
       <Header user={<UserButton afterSignOutUrl="/" />} />
-      <Sidebar logout={<SignOutButton />} />
+      <Sidebar fixed logout={<SignOutButton />} />
       <div className="w-full">
         <main className="flex flex-row">
           <div className="hidden w-64 shrink-0 lg:flex" />
