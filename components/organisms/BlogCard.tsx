@@ -3,7 +3,6 @@
 import { ImageMinus, Pencil, Trash } from 'lucide-react';
 import Image from 'next/legacy/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
@@ -16,7 +15,9 @@ type BlogCardProps = {
   image: string | null;
   category?: BlogCategoryRow[];
   permission?: boolean;
+  onEdit?: () => void;
   onDelete?: () => void;
+  isAdmin?: boolean;
 };
 
 const BlogCard = ({
@@ -25,10 +26,11 @@ const BlogCard = ({
   description,
   image,
   category = [],
+  onEdit,
+  isAdmin,
   permission = false,
   onDelete,
 }: BlogCardProps) => {
-  const router = useRouter();
   return (
     <div className="flex min-h-[240px] w-full flex-col overflow-hidden rounded-lg border shadow-lg sm:flex-row">
       <div className="relative h-[300px] w-full sm:h-full sm:min-h-[280px] sm:max-w-sm">
@@ -61,14 +63,9 @@ const BlogCard = ({
           </div>
         </div>
         <div className="mt-4 flex flex-row justify-end space-x-4 sm:mt-0">
-          {onDelete ? (
+          {isAdmin ? (
             <>
-              <Button
-                disabled={!permission}
-                onClick={() => {
-                  router.push(`/dashboard/blog/edit/${id}`);
-                }}
-              >
+              <Button disabled={!permission} onClick={onEdit}>
                 <Pencil />
               </Button>
               <Button

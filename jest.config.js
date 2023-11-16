@@ -23,6 +23,14 @@ const customJestConfig = {
     '!./**/*.stories.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
     '!**/node_modules/**',
+    '!**/.next/**',
+    '!**/coverage/**',
+    '!**/jest.config.js',
+    '!**/jest.setup.ts',
+    '!**/next-env.d.ts',
+    '!**/tailwind.config.js',
+    '!**/tests/**',
+    '!**/storybook-static/**',
   ],
   coverageThreshold: {
     global: {

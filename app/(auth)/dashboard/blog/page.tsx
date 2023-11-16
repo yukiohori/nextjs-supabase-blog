@@ -6,6 +6,7 @@ import { useAuth } from '@clerk/nextjs';
 import clsx from 'clsx';
 import { Plus } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 
 import { Loading } from '@/components/atoms/Loading';
@@ -16,6 +17,7 @@ import { useBlog } from '@/hooks/useBlog';
 
 const DashboardBlog = () => {
   const { userId } = useAuth();
+  const router = useRouter();
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const { deleteBlog, blogList, isLoading } = useBlog(true);
   const selectedBlogId = useRef<number | null>(null);
@@ -25,6 +27,10 @@ const DashboardBlog = () => {
       await deleteBlog(selectedBlogId.current);
       selectedBlogId.current = null;
     }
+  };
+
+  const handleEditLink = (id: number) => {
+    router.push(`/dashboard/blog/edit/${id}`);
   };
 
   return (
@@ -52,6 +58,7 @@ const DashboardBlog = () => {
           <div className="mb-4 flex flex-col space-y-4">
             {blogList.map((blog) => (
               <BlogCard
+                isAdmin
                 key={blog.id}
                 id={blog.id}
                 title={blog.title}
@@ -63,6 +70,7 @@ const DashboardBlog = () => {
                   selectedBlogId.current = blog.id;
                   setOpenConfirmDialog(true);
                 }}
+                onEdit={() => handleEditLink(blog.id)}
               />
             ))}
           </div>
