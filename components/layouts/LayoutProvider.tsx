@@ -32,16 +32,16 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
             Blog
           </Link>
           <Link
-            href="/tutorial"
-            className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
-          >
-            Tutorial
-          </Link>
-          <Link
             href="/about"
             className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
           >
             About
+          </Link>
+          <Link
+            href="/tutorial"
+            className="text-lg font-semibold text-gray-600 transition duration-100 hover:text-indigo-500 active:text-indigo-700"
+          >
+            [Tutorial]
           </Link>
         </nav>
         <Link
