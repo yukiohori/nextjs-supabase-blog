@@ -2,6 +2,9 @@ import { Bell } from 'lucide-react';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 
+import { SheetSidebar } from '@/components/pages/dashboard/SheetSidebar';
+import { SignOutButton } from '@/components/pages/dashboard/SignOutButton';
+
 type HeaderProps = {
   user?: ReactNode;
 };
@@ -12,6 +15,7 @@ const Header = ({ user }: HeaderProps) => {
       <div className="p-3 lg:px-5 lg:pl-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center justify-start">
+            <SheetSidebar logout={<SignOutButton />} />
             <Link href="/dashboard" className="ml-2 flex md:mr-24">
               <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white sm:text-2xl">
                 Dashboard

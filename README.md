@@ -1,16 +1,26 @@
-# nextjs-supabase-blog
-NextJS
+# NextJS Supabase Blog Starter
 
-Generate Types Supabase 
-
-npx supabase gen types typescript --project-id "ksiybdpmwdqcrvzekscu" --schema public > types/supabase.ts
-
-Policy
-(requesting_user_id() = user_id)
+## DEMO
+Explore it [here](https://nextjs-supabase-blog-gules.vercel.app/ "here")
 
 
-create trigger handle_profiles_updated_at before update on profiles
-  for each row execute procedure moddatetime (updated_at);
+## Welcome to My Tech Journey
 
+At "NextJS Supabase Blog Starter", I am passionately dedicated to crafting cutting-edge web applications that stand out with their functionality and employ the  latest and greatest technologies. My unwavering commitment to innovation drives me to employ the following key technologies:
 
-yarn playwright install
+- Next.js - Shaping the Future of React
+- Supabase - Unleashing the Power of PostgreSQL
+- Clerk - Elevating User Authentication
+- Shadcn/UI
+- Jest
+- Playwright
+- Framer Motion
+- Tiptap
+- Storybook
+
+In addition to these core technologies, I continuously explore and integrate other tools and libraries that enhance the functionality and aesthetics of my web applications. My commitment to staying at the forefront of technology ensures that my users enjoy the best possible experience.
+
+Thank you for embarking on this tech journey with me. I am thrilled to continue pushing the boundaries of what&apos;s achievable on the web. If you have any questions or desire further insights into my technology stack, please do not hesitate to reach out.
+
+## Tutorial
+You can see the tutorial [here](https://nextjs-supabase-blog-gules.vercel.app/tutorial "here")

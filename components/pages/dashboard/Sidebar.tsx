@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import {
   BookText,
   Github,
@@ -5,7 +6,6 @@ import {
   LifeBuoy,
   List,
   LogOut,
-  Settings,
   User,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -13,15 +13,25 @@ import type { ReactNode } from 'react';
 
 type SidebarProps = {
   logout?: ReactNode;
+  fixed?: boolean;
 };
 
-export const Sidebar = ({ logout }: SidebarProps) => {
+export const Sidebar = ({ logout, fixed }: SidebarProps) => {
   return (
     <aside
-      className="fixed left-0 top-0 z-20 hidden h-full w-64 shrink-0 flex-col pt-16 font-normal duration-75 lg:flex"
+      className={clsx(
+        fixed
+          ? 'fixed left-0 top-0 z-20 hidden h-full w-64 shrink-0 flex-col pt-16 font-normal duration-75 lg:flex'
+          : 'w-full',
+      )}
       aria-label="Sidebar"
     >
-      <div className="relative flex min-h-0 flex-1 flex-col border-r border-gray-200 bg-white pt-0 dark:border-gray-700 dark:bg-gray-800">
+      <div
+        className={clsx(
+          'relative flex min-h-0 flex-1 flex-col bg-white pt-0 dark:border-gray-700 dark:bg-gray-800',
+          fixed && 'border-r border-gray-200',
+        )}
+      >
         <div className="flex flex-1 flex-col overflow-y-auto pb-4 pt-5">
           <div className="flex-1 space-y-1 divide-y divide-gray-200 bg-white px-3 dark:divide-gray-700 dark:bg-gray-800">
             <ul className="space-y-2 pb-2">
@@ -90,7 +100,7 @@ export const Sidebar = ({ logout }: SidebarProps) => {
             </div>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 hidden w-full justify-center space-x-4 bg-white p-4 dark:bg-gray-800 lg:flex">
+        {/* <div className="absolute bottom-0 left-0 hidden w-full justify-center space-x-4 bg-white p-4 dark:bg-gray-800 lg:flex">
           <Link
             href="/"
             data-tooltip-target="tooltip-settings"
@@ -98,7 +108,7 @@ export const Sidebar = ({ logout }: SidebarProps) => {
           >
             <Settings />
           </Link>
-        </div>
+        </div> */}
       </div>
     </aside>
   );
