@@ -15,7 +15,7 @@ type SheetSidebarProps = {
 export const SheetSidebar = ({ logout }: SheetSidebarProps) => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const currentPathname = useRef<string>();
+  const currentPathname = useRef<string | null>();
 
   useEffect(() => {
     if (!currentPathname.current) {

@@ -11,7 +11,7 @@ import { useRef, useState } from 'react';
 
 import { Loading } from '@/components/atoms/Loading';
 import { ConfirmDialog } from '@/components/organisms/AlertDialog';
-import { BlogCard } from '@/components/organisms/BlogCard';
+import { BlogCardAdmin } from '@/components/pages/dashboard/BlogCardAdmin';
 import { Button } from '@/components/ui/Button';
 import { useBlog } from '@/hooks/useBlog';
 
@@ -57,10 +57,8 @@ const DashboardBlog = () => {
         {!isLoading && blogList?.length > 0 && (
           <div className="mb-4 flex flex-col space-y-4">
             {blogList.map((blog) => (
-              <BlogCard
-                isAdmin
+              <BlogCardAdmin
                 key={blog.id}
-                id={blog.id}
                 title={blog.title}
                 description={blog.description}
                 image={blog.thumbnail}
@@ -71,6 +69,8 @@ const DashboardBlog = () => {
                   setOpenConfirmDialog(true);
                 }}
                 onEdit={() => handleEditLink(blog.id)}
+                userId={blog.user_id}
+                createdAt={blog.created_at}
               />
             ))}
           </div>
@@ -78,7 +78,7 @@ const DashboardBlog = () => {
       </div>
       <ConfirmDialog
         title="Are you absolutely sure?"
-        description="  This action cannot be undone. This will permanently delete the blog."
+        description="This action cannot be undone. This will permanently delete the blog."
         open={openConfirmDialog}
         onOpenChange={setOpenConfirmDialog}
         confirmAction={deleteSelectedCategory}

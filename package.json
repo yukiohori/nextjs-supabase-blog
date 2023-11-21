@@ -42,6 +42,7 @@
     "@t3-oss/env-nextjs": "^0.7.1",
     "@tanstack/react-table": "^8.10.7",
     "@tiptap/extension-code-block": "^2.1.12",
+    "@tiptap/extension-hard-break": "^2.1.12",
     "@tiptap/extension-image": "^2.1.12",
     "@tiptap/extension-text-align": "^2.1.12",
     "@tiptap/pm": "^2.1.12",
