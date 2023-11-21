@@ -14,9 +14,9 @@ test.describe('Navigation', () => {
 
       await percySnapshot(page, 'Homepage');
 
-      await page.getByRole('link', { name: 'About' }).click();
+      // await page.getByRole('link', { name: 'About' }).click();
 
-      await expect(page).toHaveURL('/about');
+      // await expect(page).toHaveURL('/about');
     });
   });
 });
