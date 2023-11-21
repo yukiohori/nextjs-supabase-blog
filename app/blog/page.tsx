@@ -8,16 +8,17 @@ export const metadata: Metadata = {
   description: 'This is a blog page. You can see all the blogs in this page.',
 };
 
-const CategoryPage = async () => {
+const BlogListPage = async () => {
   const supabase = createClient();
   const { data: blogList } = await supabase
     .from('blogs')
-    .select('*, categories(id,name)');
+    .select('*, categories(id,name)')
+    .order('id', { ascending: false });
 
   return (
     <div className="mx-auto flex max-w-screen-2xl flex-col items-center px-4 pb-8 md:px-8">
       <h1 className="mb-6 pt-32 text-center text-3xl font-bold">BLOG</h1>
-      <div className="flex flex-col space-y-4">
+      <div className="flex w-full flex-col space-y-4">
         {blogList &&
           blogList.map((blog) => (
             <BlogCard
@@ -27,10 +28,12 @@ const CategoryPage = async () => {
               description={blog.description}
               category={blog.categories}
               image={blog.thumbnail}
+              userId={blog.user_id}
+              createdAt={blog.created_at}
             />
           ))}
       </div>
     </div>
   );
 };
-export default CategoryPage;
+export default BlogListPage;

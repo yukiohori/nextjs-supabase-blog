@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 // eslint-disable-next-line import/no-extraneous-dependencies
 
+import HardBreak from '@tiptap/extension-hard-break';
 import { Image as TipTapImage } from '@tiptap/extension-image';
 import TextAlign from '@tiptap/extension-text-align';
 import { EditorContent, useEditor } from '@tiptap/react';
@@ -43,6 +44,7 @@ export default function Editor({ getHTML, defaultContent }: IEditorProps) {
   const editor = useEditor({
     extensions: [
       StarterKit,
+      HardBreak,
       TipTapImage.configure({
         HTMLAttributes: {
           style: 'margin: auto',
@@ -71,7 +73,7 @@ export default function Editor({ getHTML, defaultContent }: IEditorProps) {
   };
 
   const getHTMLHandler = () => {
-    if (editor) getHTML(editor.getHTML());
+    if (editor) getHTML(editor.getHTML().replace(/<p><\/p>/g, '<br/>'));
   };
 
   if (!editor) return null;

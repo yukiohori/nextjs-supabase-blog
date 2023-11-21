@@ -2,8 +2,10 @@ import type { Metadata } from 'next';
 import Image from 'next/legacy/image';
 import Link from 'next/link';
 
+import { ImageCard } from '@/components/molecules/ImageCard';
 import { BlogTopCard } from '@/components/organisms/BlogTopCard';
 import { Technologies } from '@/components/organisms/Technologies';
+import { Button } from '@/components/ui/Button';
 import { createClient } from '@/libs/supabase/client';
 
 export const metadata: Metadata = {
@@ -16,6 +18,14 @@ const Page = async () => {
   const { data: blogList } = await sp
     .from('blogs')
     .select('*, categories(id,name)')
+    .order('id', { ascending: false })
+    .limit(8);
+
+  const { data: categoryList } = await sp
+    .from('categories')
+    .select('*')
+    .match({ show: true })
+    .order('id', { ascending: true })
     .limit(8);
 
   return (
@@ -95,6 +105,43 @@ const Page = async () => {
                 category={blog.categories}
               />
             ))}
+          </div>
+        </div>
+        <div className="my-4 flex w-full justify-center">
+          <Link href="/blog">
+            <Button>See More Blogs</Button>
+          </Link>
+        </div>
+      </div>
+
+      <div className="bg-white py-6 sm:py-8 lg:py-12">
+        <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
+          <div className="mb-10 md:mb-16">
+            <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">
+              Categories
+            </h2>
+
+            <p className="mx-auto max-w-screen-md text-center text-gray-500 md:text-lg">
+              This is a section of some simple filler text, also known as
+              placeholder text. It shares some characteristics of a real written
+              text but is random or otherwise generated.
+            </p>
+          </div>
+          <div className="grid h-fit w-full gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {categoryList &&
+              categoryList.map((category) => (
+                <ImageCard
+                  key={category.id}
+                  image={category.image_url}
+                  title={category.name}
+                  link={`/category/${category.name}`}
+                />
+              ))}
+          </div>
+          <div className="my-4 flex w-full justify-center">
+            <Link href="/category">
+              <Button>See More Categories</Button>
+            </Link>
           </div>
         </div>
       </div>

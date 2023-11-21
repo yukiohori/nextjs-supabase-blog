@@ -75,7 +75,7 @@ const BlogEditApp = () => {
   };
 
   const handleUpdateBlog = async (values: z.infer<typeof BlogSchema>) => {
-    if (!params.slug) return;
+    if (!params?.slug) return;
     const blogId = Number(params.slug);
     const { title, description, content } = values;
     let imageUrl = '';

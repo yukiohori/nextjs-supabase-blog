@@ -3,6 +3,11 @@
 ## DEMO
 Explore it [here](https://nextjs-supabase-blog-gules.vercel.app/ "here")
 
+Dashboard Page: [Sign-in](https://nextjs-supabase-blog-gules.vercel.app/sign-in "Sign-in")
+
+- Dashboard Page
+- Blog CMS
+- Category CMS
 
 ## Welcome to My Tech Journey
 
@@ -11,7 +16,7 @@ At "NextJS Supabase Blog Starter", I am passionately dedicated to crafting cutti
 - Next.js - Shaping the Future of React
 - Supabase - Unleashing the Power of PostgreSQL
 - Clerk - Elevating User Authentication
-- Shadcn/UI
+- Shadcn/UI (Mobile Responsive)
 - Jest
 - Playwright
 - Framer Motion
