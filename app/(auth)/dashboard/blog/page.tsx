@@ -1,5 +1,3 @@
-/* eslint-disable react/no-danger */
-
 'use client';
 
 import { useAuth } from '@clerk/nextjs';

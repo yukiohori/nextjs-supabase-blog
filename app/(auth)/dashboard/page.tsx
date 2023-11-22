@@ -1,12 +1,6 @@
 import { Terminal } from 'lucide-react';
-import type { Metadata } from 'next';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/Alert';
-
-export const metadata: Metadata = {
-  title: 'Dashboard',
-  description: 'User dashboard',
-};
 
 const Dashboard = () => (
   <div className="flex flex-col space-y-2">

@@ -1,10 +1,12 @@
-'use client';
-
 import { UserButton } from '@clerk/nextjs';
 
 import { Header } from '@/components/pages/dashboard/Header';
 import { Sidebar } from '@/components/pages/dashboard/Sidebar';
 import { SignOutButton } from '@/components/pages/dashboard/SignOutButton';
+
+export async function generateMetadata() {
+  return { title: 'DASHBOARD' };
+}
 
 export default function DashboardLayout({
   children,
