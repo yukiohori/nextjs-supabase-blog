@@ -1,9 +1,10 @@
 import { clerkClient } from '@clerk/nextjs';
-import type { User } from '@clerk/nextjs/dist/types/server';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
+import type { UserClerk } from '@/types/clerk';
+
 type ResponseData = {
-  user: User;
+  user: UserClerk;
 };
 
 export default async function handler(
@@ -12,5 +13,11 @@ export default async function handler(
 ) {
   const { id } = req.query;
   const user = await clerkClient.users.getUser(id as string);
-  res.status(200).json({ user });
+  res.status(200).json({
+    user: {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      imageUrl: user.imageUrl,
+    },
+  });
 }
