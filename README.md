@@ -9,6 +9,11 @@ Dashboard Page: [Sign-in](https://nextjs-supabase-blog-gules.vercel.app/sign-in 
 - Blog CMS
 - Category CMS
 
+## DONATE
+
+Your support makes a difference! Donate today and help me continue my work. Thank you!
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/yukiohori?v=1&utm_source=unp&utm_medium=email&utm_campaign=RT000269&utm_unptid=ce5e1044-88e2-11ee-9add-40a6b7290174&ppid=RT000269&cnac=JP&rsta=ja_JP%28ja-JP%29&cust=KUSBFRFAXAP3G&unptid=ce5e1044-88e2-11ee-9add-40a6b7290174&calc=f73726197db10&unp_tpcid=ppme-social-user-profile-created&page=main%3Aemail%3ART000269&pgrp=main%3Aemail&e=cl&mchn=em&s=ci&mail=sys&appVersion=1.216.0&xt=104038%2C127632)
+
 ## Welcome to My Tech Journey
 
 At "NextJS Supabase Blog Starter", I am passionately dedicated to crafting cutting-edge web applications that stand out with their functionality and employ the  latest and greatest technologies. My unwavering commitment to innovation drives me to employ the following key technologies:
