@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-console */
 import { useAuth, useSession } from '@clerk/nextjs';
 import { useCallback, useEffect, useState } from 'react';
@@ -152,7 +153,7 @@ export const useCategory = (fetch?: boolean) => {
     if (fetch) {
       fetchCategories();
     }
-  }, [fetch, fetchCategories]);
+  }, [fetch]);
 
   return {
     fetchCategories,

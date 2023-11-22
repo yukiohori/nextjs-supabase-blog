@@ -1,29 +1,56 @@
-/* eslint-disable no-console */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useAuth, useSession } from '@clerk/nextjs';
-import { useCallback, useEffect, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { toast } from '@/hooks/useToast';
+import { DASHBOARD_BLOG_PAGINATION } from '@/libs/constants';
 import { createClient } from '@/libs/supabase/client';
 import { supabaseClient } from '@/libs/supabase/server';
 import type { Blog, BlogInsert, BlogUpdate } from '@/types/database';
 
+const numberOfItems = DASHBOARD_BLOG_PAGINATION;
+
 export const useBlog = (fetch?: boolean) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [pageNumber, setPageNumber] = useState<number>(
+    Number(searchParams?.get('page')) || 1,
+  );
+
   const [isLoading, setIsLoading] = useState(true);
+  const [count, setCount] = useState<number | null>(null);
   const [blogList, setBlogList] = useState<Blog[]>([]);
   const { session } = useSession();
   const { getToken } = useAuth();
+  const isFetching = useRef(false);
+
+  const offsetItems = useMemo(() => {
+    return (pageNumber - 1) * numberOfItems;
+  }, [pageNumber]);
 
   const fetchBlog = useCallback(async () => {
+    if (isFetching.current) return;
+    isFetching.current = true;
+    const currentPage = Number(searchParams?.get('page') || 1);
+    const currentOffsetItems = (currentPage - 1) * numberOfItems;
     try {
       const sp = createClient();
-      const { data: blog, error } = await sp
+      const {
+        data: blog,
+        error,
+        count: totalCount,
+      } = await sp
         .from('blogs')
-        .select('*, categories(id,name)')
+        .select('*, categories(id,name)', { count: 'exact' })
+        .range(currentOffsetItems, currentOffsetItems + numberOfItems - 1)
         .order('id', { ascending: false });
       if (error) {
         throw new Error(error.message);
       }
       setBlogList(blog || []);
+      setCount(totalCount);
     } catch (e) {
       const errorMessage =
         e instanceof Error
@@ -37,8 +64,9 @@ export const useBlog = (fetch?: boolean) => {
       setBlogList([]);
     } finally {
       setIsLoading(false);
+      isFetching.current = false;
     }
-  }, []);
+  }, [offsetItems, searchParams]);
 
   const fetchBlogById = useCallback(async (blogId: number) => {
     try {
@@ -91,7 +119,6 @@ export const useBlog = (fetch?: boolean) => {
           description: 'Blog created successfully',
         });
         fetchBlog();
-        console.log({ data });
         return data;
       } catch (e) {
         const errorMessage =
@@ -163,8 +190,6 @@ export const useBlog = (fetch?: boolean) => {
         setIsLoading(true);
         const sb = await supabaseClient(supabaseAccessToken);
         const { error } = await sb.from('blogs').delete().match({ id });
-        console.log(error);
-
         if (error) {
           throw new Error(error.message);
         }
@@ -195,7 +220,21 @@ export const useBlog = (fetch?: boolean) => {
     if (fetch) {
       fetchBlog();
     }
-  }, [fetch, fetchBlog]);
+  }, [fetch]);
+
+  useEffect(() => {
+    fetchBlog();
+  }, [searchParams]);
+
+  const prevNextPage = useCallback(
+    (action: 'prev' | 'next') => {
+      const nextPageNumber =
+        action === 'prev' ? pageNumber - 1 : pageNumber + 1;
+      setPageNumber(nextPageNumber);
+      router.push(`${pathname}?page=${nextPageNumber}`);
+    },
+    [pageNumber, pathname, router],
+  );
 
   return {
     fetchBlog,
@@ -203,7 +242,12 @@ export const useBlog = (fetch?: boolean) => {
     insertBlog,
     updateBlog,
     deleteBlog,
+    prevNextPage,
     isLoading,
     blogList,
+    pageNumber,
+    offsetItems,
+    numberOfItems,
+    count,
   };
 };

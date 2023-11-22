@@ -62,6 +62,13 @@ const Page = async () => {
                 >
                   Tutorial
                 </Link>
+
+                <Link
+                  href="/dashboard"
+                  className="inline-block rounded-lg bg-slate-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-indigo-300 transition duration-100 hover:bg-slate-500 focus-visible:ring active:bg-slate-900 md:text-base"
+                >
+                  Go to Dashboard
+                </Link>
               </div>
             </div>
             <div className="relative h-48 overflow-hidden rounded-lg bg-gray-100 shadow-lg lg:h-auto xl:w-5/12">

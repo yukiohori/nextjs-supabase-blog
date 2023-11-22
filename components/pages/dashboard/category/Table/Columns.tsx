@@ -21,6 +21,8 @@ import {
 } from '@/components/ui/DropdownMenu';
 import type { Category } from '@/types/database';
 
+import { UserInfo } from '../../UserInfo';
+
 type CategoryRow = Category & {
   delete: () => void;
   update: () => void;
@@ -69,6 +71,13 @@ export const columns: ColumnDef<CategoryRow>[] = [
   {
     accessorKey: 'name',
     header: 'Name',
+  },
+  {
+    accessorKey: 'user_id',
+    header: 'Owner',
+    cell: ({ row }) => {
+      return <UserInfo userId={row.getValue('user_id')} />;
+    },
   },
   {
     accessorKey: 'show',

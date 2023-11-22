@@ -24,6 +24,11 @@ const Dashboard = () => (
         You can edit and delete only your own blogs and categories.
       </AlertDescription>
     </Alert>
+    <Alert>
+      <Terminal className="h-4 w-4" />
+      <AlertTitle>Coming soon..</AlertTitle>
+      <AlertDescription>Blog Preview Tab is coming soon.</AlertDescription>
+    </Alert>
   </div>
 );
 

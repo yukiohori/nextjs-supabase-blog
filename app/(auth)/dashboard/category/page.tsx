@@ -57,6 +57,8 @@ const DashboardCategory = () => {
 
   const categoryListTableData = useMemo(() => {
     return categoryList.map((category) => {
+      console.log(category);
+
       return {
         ...category,
         delete: () => {

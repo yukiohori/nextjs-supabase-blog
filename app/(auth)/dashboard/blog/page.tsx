@@ -19,7 +19,15 @@ const DashboardBlog = () => {
   const { userId } = useAuth();
   const router = useRouter();
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
-  const { deleteBlog, blogList, isLoading } = useBlog(true);
+  const {
+    deleteBlog,
+    prevNextPage,
+    blogList,
+    isLoading,
+    pageNumber,
+    numberOfItems,
+    count,
+  } = useBlog(true);
   const selectedBlogId = useRef<number | null>(null);
 
   const deleteSelectedCategory = async () => {
@@ -75,6 +83,20 @@ const DashboardBlog = () => {
             ))}
           </div>
         )}
+      </div>
+      <div className="mb-8 mt-6 flex w-full items-center justify-center space-x-4">
+        <Button
+          onClick={() => prevNextPage('prev')}
+          disabled={pageNumber - 1 === 0}
+        >
+          Prev
+        </Button>
+        <Button
+          onClick={() => prevNextPage('next')}
+          disabled={(pageNumber + 1) * numberOfItems > (count || 0)}
+        >
+          Next
+        </Button>
       </div>
       <ConfirmDialog
         title="Are you absolutely sure?"

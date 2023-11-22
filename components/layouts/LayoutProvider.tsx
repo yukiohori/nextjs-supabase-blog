@@ -171,37 +171,19 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
                 <nav className="flex flex-col gap-4">
                   <div>
                     <Link
-                      href="/"
+                      href="/about"
                       className="text-gray-400 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
-                      Contact
+                      About
                     </Link>
                   </div>
 
                   <div>
                     <Link
-                      href="/"
+                      href="/utorial"
                       className="text-gray-400 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
                     >
-                      Documentation
-                    </Link>
-                  </div>
-
-                  <div>
-                    <Link
-                      href="/"
-                      className="text-gray-400 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
-                    >
-                      Chat
-                    </Link>
-                  </div>
-
-                  <div>
-                    <Link
-                      href="/"
-                      className="text-gray-400 transition duration-100 hover:text-indigo-500 active:text-indigo-600"
-                    >
-                      FAQ
+                      Tutorial
                     </Link>
                   </div>
                 </nav>
@@ -210,7 +192,6 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
                 <div className="mb-4 font-bold uppercase tracking-widest text-gray-100">
                   Legal
                 </div>
-
                 <nav className="flex flex-col gap-4">
                   <div>
                     <Link
@@ -220,7 +201,6 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
                       Terms of Service
                     </Link>
                   </div>
-
                   <div>
                     <Link
                       href="/"
@@ -229,7 +209,6 @@ export const LayoutProvider = ({ children }: { children: React.ReactNode }) => {
                       Privacy Policy
                     </Link>
                   </div>
-
                   <div>
                     <Link
                       href="/"
